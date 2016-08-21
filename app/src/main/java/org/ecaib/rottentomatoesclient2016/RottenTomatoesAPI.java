@@ -2,9 +2,11 @@ package org.ecaib.rottentomatoesclient2016;
 
 import android.net.Uri;
 
+import android.support.annotation.Nullable;
+
 import java.io.IOException;
 
-public class RottenTomatoesAPI {
+class RottenTomatoesAPI {
     private final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
     private final String API_KEY = "9htuhtcb4ymusd73d4z6jxcj";
 
@@ -19,13 +21,7 @@ public class RottenTomatoesAPI {
                 .build();
         String url = builtUri.toString();
 
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return JsonResponse;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return doCall(url);
     }
 
     String getProximesEstrenes(String pais) {
@@ -39,6 +35,11 @@ public class RottenTomatoesAPI {
                 .build();
         String url = builtUri.toString();
 
+        return doCall(url);
+    }
+
+    @Nullable
+    private String doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
             return JsonResponse;
@@ -47,5 +48,4 @@ public class RottenTomatoesAPI {
         }
         return null;
     }
-
 }
