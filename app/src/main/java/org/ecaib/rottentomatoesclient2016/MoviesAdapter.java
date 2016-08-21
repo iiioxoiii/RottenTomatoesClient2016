@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 
@@ -39,7 +41,11 @@ public class MoviesAdapter extends ArrayAdapter<Movie> {
 
         // Fiquem les dades dels objectes (provinents del JSON) en el layout
         tvTitle.setText(movie.getTitle());
+
         tvReleaseDate.setText(movie.getReleaseDate());
+        Glide.with(getContext()).load(
+                "https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()
+        ).into(ivPosterImage);
 
         // Retornem la View replena per a mostrarla
         return convertView;
