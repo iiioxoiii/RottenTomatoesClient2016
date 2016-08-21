@@ -3,6 +3,7 @@ package org.ecaib.rottentomatoesclient2016;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -84,6 +85,10 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refresh() {
+        RottenTomatoesAPI api = new RottenTomatoesAPI();
+        String result = api.getPeliculesMesVistes("es");
+
+        Log.d("DEBUG", result);
     }
 
 
