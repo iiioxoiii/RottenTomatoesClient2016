@@ -1,16 +1,11 @@
 package org.ecaib.rottentomatoesclient2016;
 
-import android.text.TextUtils;
-
-import java.util.ArrayList;
-
 public class Movie {
     private String title;
     private int year;
     private String synopsis;
     private String posterUrl;
-    private int criticsScore;
-    private ArrayList<String> castList;
+    private int critics_score;
 
     public String getTitle() {
         return title;
@@ -44,20 +39,12 @@ public class Movie {
         this.posterUrl = posterUrl;
     }
 
-    public int getCriticsScore() {
-        return criticsScore;
+    public int getCritics_score() {
+        return critics_score;
     }
 
-    public void setCriticsScore(int criticsScore) {
-        this.criticsScore = criticsScore;
-    }
-
-    public ArrayList<String> getCastList() {
-        return castList;
-    }
-
-    public void setCastList(ArrayList<String> castList) {
-        this.castList = castList;
+    public void setCritics_score(int critics_score) {
+        this.critics_score = critics_score;
     }
 
     @Override
@@ -67,8 +54,7 @@ public class Movie {
                 ", year=" + year +
                 ", synopsis='" + synopsis + '\'' +
                 ", posterUrl='" + posterUrl + '\'' +
-                ", criticsScore=" + criticsScore +
-                ", castList=" + castList +
+                ", critics_score=" + critics_score +
                 '}';
     }
 }
