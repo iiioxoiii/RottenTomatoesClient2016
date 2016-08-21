@@ -1,6 +1,8 @@
 package org.ecaib.rottentomatoesclient2016;
 
-public class Movie {
+import java.io.Serializable;
+
+public class Movie implements Serializable {
     private String title;
     private String releaseDate;
     private String overview;
