@@ -18,13 +18,7 @@ public class RottenTomatoesAPI {
                 .build();
         String url = builtUri.toString();
 
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return JsonResponse;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return doCall(url);
     }
 
     String getProximesEstrenes(String pais) {
@@ -37,6 +31,10 @@ public class RottenTomatoesAPI {
                 .build();
         String url = builtUri.toString();
 
+        return doCall(url);
+    }
+
+    private String doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
             return JsonResponse;
