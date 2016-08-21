@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -28,7 +29,17 @@ public class MainActivityFragment extends Fragment {
 
         ListView lvPelis = (ListView) view.findViewById(R.id.lvPelis);
 
-        items = new ArrayList<>();
+        String[] data = {
+                "Los 400 golpes",
+                "El odio",
+                "El padrino",
+                "El padrino. Parte II",
+                "Ocurrió cerca de su casa",
+                "Infiltrados",
+                "Umberto D."
+        };
+
+        items = new ArrayList<>(Arrays.asList(data));
         adapter = new ArrayAdapter<>(
                 getContext(),
                 R.layout.lv_pelis_row,
