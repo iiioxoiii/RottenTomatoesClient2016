@@ -25,7 +25,7 @@ import java.util.Arrays;
 public class MainActivityFragment extends Fragment {
 
     private ArrayList<Movie> items;
-    private ArrayAdapter<Movie> adapter;
+    private MoviesAdapter adapter;
 
     public MainActivityFragment() {
     }
@@ -45,10 +45,9 @@ public class MainActivityFragment extends Fragment {
         ListView lvPelis = (ListView) view.findViewById(R.id.lvPelis);
 
         items = new ArrayList<>();
-        adapter = new ArrayAdapter<>(
+        adapter = new MoviesAdapter(
                 getContext(),
                 R.layout.lv_pelis_row,
-                R.id.tvPeli,
                 items
         );
         lvPelis.setAdapter(adapter);

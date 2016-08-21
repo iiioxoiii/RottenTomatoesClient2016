@@ -39,16 +39,6 @@
             android:hint="91%"
             android:textSize="12sp" />
 
-        <TextView
-            android:id="@+id/tvCast"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCriticsScore"
-            android:ellipsize="end"
-            android:hint="Christian Bale, Joseph-Gordon Levitt, Heath Ledger, Maggie Gylenhall"
-            android:maxLines="1"
-            android:textSize="12sp" />
-
     </RelativeLayout>
 
 </RelativeLayout>
