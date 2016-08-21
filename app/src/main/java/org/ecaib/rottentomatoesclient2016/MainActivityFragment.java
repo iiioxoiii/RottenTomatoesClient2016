@@ -1,6 +1,8 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -93,10 +95,19 @@ public class MainActivityFragment extends Fragment {
     private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
         @Override
         protected ArrayList<Movie> doInBackground(Void... voids) {
-            RottenTomatoesAPI api = new RottenTomatoesAPI();
-            ArrayList<Movie> result = api.getPeliculesMesVistes("es");
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+            String pais = preferences.getString("pais", "es");
+            String tipusConsulta = preferences.getString("tipus_consulta", "vistes");
 
-            Log.d("DEBUG", result.toString());
+            RottenTomatoesAPI api = new RottenTomatoesAPI();
+            ArrayList<Movie> result = null;
+            if (tipusConsulta.equals("vistes")) {
+                result = api.getPeliculesMesVistes(pais);
+            } else {
+                result = api.getProximesEstrenes(pais);
+            }
+
+            Log.d("DEBUG", result != null ? result.toString() : null);
 
             return result;
         }
