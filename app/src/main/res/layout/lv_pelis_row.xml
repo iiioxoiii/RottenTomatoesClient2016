@@ -11,7 +11,8 @@
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
         android:maxHeight="70dp"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -27,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:hint="The Dark Knight"
-            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -37,6 +37,7 @@
             android:layout_alignLeft="@+id/tvTitle"
             android:layout_below="@+id/tvTitle"
             android:hint="91%"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="12sp" />
 
     </RelativeLayout>
