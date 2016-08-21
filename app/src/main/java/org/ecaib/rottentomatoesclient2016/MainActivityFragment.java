@@ -94,9 +94,9 @@ public class MainActivityFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... voids) {
             RottenTomatoesAPI api = new RottenTomatoesAPI();
-            String result = api.getPeliculesMesVistes("es");
+            ArrayList<Movie> result = api.getPeliculesMesVistes("es");
 
-            Log.d("DEBUG", result);
+            Log.d("DEBUG", result.toString());
 
             return null;
         }
