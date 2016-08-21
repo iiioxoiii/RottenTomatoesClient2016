@@ -44,17 +44,7 @@ public class MainActivityFragment extends Fragment {
 
         ListView lvPelis = (ListView) view.findViewById(R.id.lvPelis);
 
-        String[] data = {
-                "Los 400 golpes",
-                "El odio",
-                "El padrino",
-                "El padrino. Parte II",
-                "Ocurrió cerca de su casa",
-                "Infiltrados",
-                "Umberto D."
-        };
-
-        items = new ArrayList<>(Arrays.asList(data));
+        items = new ArrayList<>();
         adapter = new ArrayAdapter<>(
                 getContext(),
                 R.layout.lv_pelis_row,
@@ -87,6 +77,12 @@ public class MainActivityFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        refresh();
+    }
+
     private void refresh() {
         RefreshDataTask task = new RefreshDataTask();
         task.execute();
@@ -100,7 +96,7 @@ public class MainActivityFragment extends Fragment {
             String tipusConsulta = preferences.getString("tipus_consulta", "vistes");
 
             RottenTomatoesAPI api = new RottenTomatoesAPI();
-            ArrayList<Movie> result = null;
+            ArrayList<Movie> result;
             if (tipusConsulta.equals("vistes")) {
                 result = api.getPeliculesMesVistes(pais);
             } else {
