@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class RottenTomatoesAPI {
     private final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
+    private final String API_KEY = "9htuhtcb4ymusd73d4z6jxcj";
 
     String getPeliculesMesVistes(String pais) {
         Uri builtUri = Uri.parse(BASE_URL)
@@ -14,6 +15,7 @@ public class RottenTomatoesAPI {
                 .appendPath("movies")
                 .appendPath("box_office.json")
                 .appendQueryParameter("country", pais)
+                .appendQueryParameter("apikey", API_KEY)
                 .build();
         String url = builtUri.toString();
 
