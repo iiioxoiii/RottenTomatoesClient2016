@@ -24,8 +24,8 @@ import java.util.Arrays;
  */
 public class MainActivityFragment extends Fragment {
 
-    private ArrayList<String> items;
-    private ArrayAdapter<String> adapter;
+    private ArrayList<Movie> items;
+    private ArrayAdapter<Movie> adapter;
 
     public MainActivityFragment() {
     }
@@ -112,7 +112,7 @@ public class MainActivityFragment extends Fragment {
         protected void onPostExecute(ArrayList<Movie> movies) {
             adapter.clear();
             for (Movie peli : movies) {
-                adapter.add(peli.getTitle());
+                adapter.add(peli);
             }
         }
     }
