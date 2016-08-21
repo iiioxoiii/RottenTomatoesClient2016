@@ -90,15 +90,23 @@ public class MainActivityFragment extends Fragment {
         task.execute();
     }
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
+    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected ArrayList<Movie> doInBackground(Void... voids) {
             RottenTomatoesAPI api = new RottenTomatoesAPI();
             ArrayList<Movie> result = api.getPeliculesMesVistes("es");
 
             Log.d("DEBUG", result.toString());
 
-            return null;
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Movie> movies) {
+            adapter.clear();
+            for (Movie peli : movies) {
+                adapter.add(peli.getTitle());
+            }
         }
     }
 
