@@ -3,6 +3,7 @@ package org.ecaib.rottentomatoesclient2016;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -20,6 +21,10 @@ import android.widget.AdapterView;
 import org.ecaib.rottentomatoesclient2016.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
+
+import nl.littlerobots.cupboard.tools.provider.UriHelper;
+
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -101,9 +106,9 @@ public class MainActivityFragment extends Fragment {
         task.execute();
     }
 
-    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
+    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
         @Override
-        protected ArrayList<Movie> doInBackground(Void... voids) {
+        protected Void doInBackground(Void... voids) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
             String pais = preferences.getString("pais", "es");
             String tipusConsulta = preferences.getString("tipus_consulta", "vistes");
@@ -117,16 +122,13 @@ public class MainActivityFragment extends Fragment {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
-            return result;
+            UriHelper helper = UriHelper.with(RottenTomatoesContentProvider.AUTHORITY);
+            Uri movieUri = helper.getUri(Movie.class);
+            cupboard().withContext(getContext()).put(movieUri, Movie.class, result);
+
+            return null;
         }
 
-        @Override
-        protected void onPostExecute(ArrayList<Movie> movies) {
-            adapter.clear();
-            for (Movie peli : movies) {
-                adapter.add(peli);
-            }
-        }
     }
 
 }
