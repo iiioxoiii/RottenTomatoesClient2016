@@ -20,4 +20,9 @@ public class DataManager {
     static void saveMovies(ArrayList<Movie> movies, Context context) {
         cupboard().withContext(context).put(MOVIE_URI, Movie.class, movies);
     }
+
+    static void deleteMovies(Context context) {
+        cupboard().withContext(context).delete(MOVIE_URI, "_id > ?", "1");
+    }
+
 }
