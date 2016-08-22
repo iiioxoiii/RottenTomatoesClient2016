@@ -59,6 +59,7 @@ public class MainActivityFragment extends Fragment {
                 Movie movie = (Movie) adapterView.getItemAtPosition(i);
 
                 Intent intent = new Intent(getContext(), DetailActivity.class);
+                intent.putExtra("movie", movie);
             }
         });
 
