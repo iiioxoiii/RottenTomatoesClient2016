@@ -3,12 +3,15 @@ package org.ecaib.rottentomatoesclient2016;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -53,5 +56,11 @@ public class DetailActivityFragment extends Fragment {
         tvAudienceScore = (TextView) view.findViewById(R.id.tvAudienceScore);
         tvCriticsConsensus = (TextView) view.findViewById(R.id.tvCriticsConsensus);
         tvSynopsis = (TextView) view.findViewById(R.id.tvSynopsis);
+
+        tvTitle.setText(movie.getTitle());
+        tvCriticsScore.setText(
+                Html.fromHtml("<b>Critics Score:</b> " + movie.getCritics_score() + "%"));
+        tvSynopsis.setText(Html.fromHtml("<b>Synopsis:</b> " + movie.getSynopsis()));
+        Glide.with(getContext()).load(movie.getPosterUrl()).into(ivPosterImage);
     }
 }
