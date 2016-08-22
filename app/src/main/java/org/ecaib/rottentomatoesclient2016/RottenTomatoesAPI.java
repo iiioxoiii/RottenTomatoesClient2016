@@ -1,8 +1,8 @@
 package org.ecaib.rottentomatoesclient2016;
 
 import android.net.Uri;
-
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,33 +14,33 @@ import java.util.ArrayList;
 class RottenTomatoesAPI {
     private final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
     private final String API_KEY = "9htuhtcb4ymusd73d4z6jxcj";
+    private final Integer LIMIT = 50;
 
     ArrayList<Movie> getPeliculesMesVistes(String pais) {
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("lists")
-                .appendPath("movies")
-                .appendPath("box_office.json")
-                .appendQueryParameter("country", pais)
-                .appendQueryParameter("apikey", API_KEY)
-                .build();
-        String url = builtUri.toString();
+        String url = getUrl(pais, "box_office.json");
 
+        Log.d("URL", url);
         return doCall(url);
     }
 
     ArrayList<Movie> getProximesEstrenes(String pais) {
+        String url = getUrl(pais, "upcoming.json");
+
+        Log.d("URL", url);
+        return doCall(url);
+    }
+
+    private String getUrl(String pais, String endpoint) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("lists")
                 .appendPath("movies")
-                .appendPath("upcoming.json")
+                .appendPath(endpoint)
                 .appendQueryParameter("country", pais)
+                .appendQueryParameter("limit", LIMIT.toString())
                 .appendQueryParameter("apikey", API_KEY)
                 .build();
-        String url = builtUri.toString();
-
-        return doCall(url);
+        return builtUri.toString();
     }
 
     @Nullable
