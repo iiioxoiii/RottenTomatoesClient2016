@@ -1,6 +1,7 @@
 package org.ecaib.rottentomatoesclient2016;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Html;
@@ -8,23 +9,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
+import org.ecaib.rottentomatoesclient2016.databinding.FragmentDetailBinding;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailActivityFragment extends Fragment {
 
-    private View view;
-    private ImageView ivPosterImage;
-    private TextView tvTitle;
-    private TextView tvCriticsScore;
-    private TextView tvAudienceScore;
-    private TextView tvCriticsConsensus;
-    private TextView tvSynopsis;
+    private FragmentDetailBinding binding;
 
     public DetailActivityFragment() {
     }
@@ -32,7 +27,9 @@ public class DetailActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_detail, container, false);
+        binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_detail, container, false);
+        View view = binding.getRoot();
 
         Intent i = getActivity().getIntent();
 
@@ -50,17 +47,10 @@ public class DetailActivityFragment extends Fragment {
     private void updateUi(Movie movie) {
         Log.d("MOVIE", movie.toString());
 
-        ivPosterImage = (ImageView) view.findViewById(R.id.ivPosterImage);
-        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvCriticsScore = (TextView) view.findViewById(R.id.tvCriticsScore);
-        tvAudienceScore = (TextView) view.findViewById(R.id.tvAudienceScore);
-        tvCriticsConsensus = (TextView) view.findViewById(R.id.tvCriticsConsensus);
-        tvSynopsis = (TextView) view.findViewById(R.id.tvSynopsis);
-
-        tvTitle.setText(movie.getTitle());
-        tvCriticsScore.setText(
+        binding.tvTitle.setText(movie.getTitle());
+        binding.tvCriticsScore.setText(
                 Html.fromHtml("<b>Critics Score:</b> " + movie.getCritics_score() + "%"));
-        tvSynopsis.setText(Html.fromHtml("<b>Synopsis:</b> " + movie.getSynopsis()));
-        Glide.with(getContext()).load(movie.getPosterUrl()).into(ivPosterImage);
+        binding.tvSynopsis.setText(Html.fromHtml("<b>Synopsis:</b> " + movie.getSynopsis()));
+        Glide.with(getContext()).load(movie.getPosterUrl()).into(binding.ivPosterImage);
     }
 }
