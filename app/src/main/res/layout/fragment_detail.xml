@@ -10,11 +10,11 @@
          http://content8.flixster.com/movie/11/15/86/11158674_pro.jpg -->
     <ImageView
         android:id="@+id/ivPosterImage"
-        android:layout_width="100dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="133dp"
+        android:layout_height="169dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:maxHeight="160dp"
         android:scaleType="fitXY"
@@ -63,7 +63,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:text="This is an excellent movie that has action and romance"
-        app:layout_constraintLeft_toLeftOf="@+id/tvAudienceScore"
+        app:layout_constraintLeft_toLeftOf="@+id/ivPosterImage"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ivPosterImage" />
 
