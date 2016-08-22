@@ -28,7 +28,7 @@ public class MoviesCursorAdapter extends CupboardCursorAdapter<Movie> {
     public void bindView(View view, Context context, Movie model) {
         LvPelisRowBinding binding = DataBindingUtil.getBinding(view);
         binding.tvTitle.setText(model.getTitle());
-        binding.tvCriticsScore.setText(model.getCritics_score());
+        binding.tvCriticsScore.setText("Score: " + model.getCritics_score() + "%");
         Glide.with(context).load(model.getPosterUrl()).into(binding.ivPosterImage);
     }
 }

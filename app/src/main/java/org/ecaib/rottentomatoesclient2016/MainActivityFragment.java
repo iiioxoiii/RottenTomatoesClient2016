@@ -2,12 +2,15 @@ package org.ecaib.rottentomatoesclient2016;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,9 +27,8 @@ import java.util.ArrayList;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private ArrayList<Movie> items;
     private MoviesCursorAdapter adapter;
 
     public MainActivityFragment() {
@@ -45,8 +47,6 @@ public class MainActivityFragment extends Fragment {
         FragmentMainBinding binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_main, container, false);
         View view = binding.getRoot();
-
-        items = new ArrayList<>();
         adapter = new MoviesCursorAdapter(getContext(), Movie.class);
 
         binding.lvPelis.setAdapter(adapter);
@@ -61,6 +61,8 @@ public class MainActivityFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        getLoaderManager().initLoader(0, null, this);
 
         return view;
     }
@@ -95,6 +97,21 @@ public class MainActivityFragment extends Fragment {
     private void refresh() {
         RefreshDataTask task = new RefreshDataTask();
         task.execute();
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return DataManager.getCursorLoader(getContext());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        adapter.swapCursor(data);
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        adapter.swapCursor(null);
     }
 
     private class RefreshDataTask extends AsyncTask<Void, Void, Void> {

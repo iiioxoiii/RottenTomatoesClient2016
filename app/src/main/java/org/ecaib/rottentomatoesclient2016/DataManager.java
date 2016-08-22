@@ -2,6 +2,7 @@ package org.ecaib.rottentomatoesclient2016;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.v4.content.CursorLoader;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,11 @@ public class DataManager {
     }
 
     static void deleteMovies(Context context) {
-        cupboard().withContext(context).delete(MOVIE_URI, "_id > ?", "1");
+        cupboard().withContext(context).delete(MOVIE_URI, "_id > ?", "0");
+    }
+
+    static CursorLoader getCursorLoader(Context context) {
+        return new CursorLoader(context, MOVIE_URI, null, null, null, null);
     }
 
 }
