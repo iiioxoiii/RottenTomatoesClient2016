@@ -37,6 +37,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.ecaib.rottentomatoesclient2016.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".RottenTomatoesContentProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false" />
     </application>
 
 </manifest>
