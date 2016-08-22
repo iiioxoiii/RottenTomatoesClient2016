@@ -27,7 +27,7 @@ import java.util.ArrayList;
 public class MainActivityFragment extends Fragment {
 
     private ArrayList<Movie> items;
-    private MoviesAdapter adapter;
+    private MoviesCursorAdapter adapter;
 
     public MainActivityFragment() {
     }
@@ -47,11 +47,7 @@ public class MainActivityFragment extends Fragment {
         View view = binding.getRoot();
 
         items = new ArrayList<>();
-        adapter = new MoviesAdapter(
-                getContext(),
-                R.layout.lv_pelis_row,
-                items
-        );
+        adapter = new MoviesCursorAdapter(getContext(), Movie.class);
 
         binding.lvPelis.setAdapter(adapter);
         binding.lvPelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
