@@ -7,11 +7,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailActivityFragment extends Fragment {
+
+    private View view;
+    private ImageView ivPosterImage;
+    private TextView tvTitle;
+    private TextView tvCriticsScore;
+    private TextView tvAudienceScore;
+    private TextView tvCriticsConsensus;
+    private TextView tvSynopsis;
 
     public DetailActivityFragment() {
     }
@@ -19,7 +29,7 @@ public class DetailActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detail, container, false);
+        view = inflater.inflate(R.layout.fragment_detail, container, false);
 
         Intent i = getActivity().getIntent();
 
@@ -36,5 +46,12 @@ public class DetailActivityFragment extends Fragment {
 
     private void updateUi(Movie movie) {
         Log.d("MOVIE", movie.toString());
+
+        ivPosterImage = (ImageView) view.findViewById(R.id.ivPosterImage);
+        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
+        tvCriticsScore = (TextView) view.findViewById(R.id.tvCriticsScore);
+        tvAudienceScore = (TextView) view.findViewById(R.id.tvAudienceScore);
+        tvCriticsConsensus = (TextView) view.findViewById(R.id.tvCriticsConsensus);
+        tvSynopsis = (TextView) view.findViewById(R.id.tvSynopsis);
     }
 }
