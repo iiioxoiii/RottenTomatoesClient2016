@@ -1,5 +1,6 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,6 +57,8 @@ public class MainActivityFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Movie movie = (Movie) adapterView.getItemAtPosition(i);
+
+                Intent intent = new Intent(getContext(), DetailActivity.class);
             }
         });
 
