@@ -3,7 +3,6 @@ package org.ecaib.rottentomatoesclient2016;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,10 +20,6 @@ import android.widget.AdapterView;
 import org.ecaib.rottentomatoesclient2016.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
-
-import nl.littlerobots.cupboard.tools.provider.UriHelper;
-
-import static nl.qbusict.cupboard.CupboardFactory.cupboard;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -122,10 +117,7 @@ public class MainActivityFragment extends Fragment {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
-            UriHelper helper = UriHelper.with(RottenTomatoesContentProvider.AUTHORITY);
-            Uri movieUri = helper.getUri(Movie.class);
-            cupboard().withContext(getContext()).put(movieUri, Movie.class, result);
-
+            DataManager.saveMovies(result, getContext());
             return null;
         }
 
