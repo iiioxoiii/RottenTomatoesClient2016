@@ -3,12 +3,15 @@ package org.ecaib.rottentomatoesclient2016;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -22,6 +25,7 @@ public class DetailActivityFragment extends Fragment {
     private TextView tvAudienceScore;
     private TextView tvCriticsConsensus;
     private TextView tvSynopsis;
+    private TextView tvReleaseDate;
 
     public DetailActivityFragment() {
     }
@@ -47,11 +51,16 @@ public class DetailActivityFragment extends Fragment {
     private void updateUi(Movie movie) {
         Log.d("MOVIE", movie.toString());
 
-        ivPosterImage = (ImageView) view.findViewById(R.id.ivPosterImage);
-        tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-        tvCriticsScore = (TextView) view.findViewById(R.id.tvCriticsScore);
-        tvAudienceScore = (TextView) view.findViewById(R.id.tvAudienceScore);
-        tvCriticsConsensus = (TextView) view.findViewById(R.id.tvCriticsConsensus);
-        tvSynopsis = (TextView) view.findViewById(R.id.tvSynopsis);
+        ivPosterImage = view.findViewById(R.id.ivPosterImage);
+        tvTitle =  view.findViewById(R.id.tvTitle);
+        tvReleaseDate = view.findViewById(R.id.tvReleaseDate);
+        tvSynopsis =   view.findViewById(R.id.tvSynopsis);
+
+        tvTitle.setText(movie.getTitle());
+        tvReleaseDate.setText(movie.getReleaseDate());
+        tvSynopsis.setText(Html.fromHtml("<b>Synopsis:</b> " + movie.getOverview()));
+        Glide.with(getContext()).load(
+                "https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()
+        ).into(ivPosterImage);
     }
 }

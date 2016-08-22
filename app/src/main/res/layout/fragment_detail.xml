@@ -36,45 +36,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvCriticsScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Critics Score: 93%"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/tvTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
-
-    <TextView
-        android:id="@+id/tvAudienceScore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Audience Score: 93%"
-        android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/tvCriticsScore"
-        app:layout_constraintTop_toBottomOf="@+id/tvCriticsScore" />
-
-    <TextView
-        android:id="@+id/tvCriticsConsensus"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        android:text="This is an excellent movie that has action and romance"
-        app:layout_constraintLeft_toLeftOf="@+id/tvAudienceScore"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPosterImage" />
-
-    <TextView
         android:id="@+id/tvSynopsis"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="This is a story about a protagonist defeating an antagonist"
-        app:layout_constraintLeft_toLeftOf="@+id/tvCriticsConsensus"
-        app:layout_constraintRight_toRightOf="@+id/tvCriticsConsensus"
-        app:layout_constraintTop_toBottomOf="@+id/tvCriticsConsensus" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivPosterImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvReleaseDate" />
+
+    <TextView
+        android:id="@+id/tvReleaseDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/ivPosterImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
 </android.support.constraint.ConstraintLayout>
