@@ -108,12 +108,11 @@ public class MainActivityFragment extends Fragment {
             String pais = preferences.getString("pais", "es");
             String tipusConsulta = preferences.getString("tipus_consulta", "vistes");
 
-            RottenTomatoesAPI api = new RottenTomatoesAPI();
             ArrayList<Movie> result;
             if (tipusConsulta.equals("vistes")) {
-                result = api.getPeliculesMesVistes(pais);
+                result = RottenTomatoesAPI.getPeliculesMesVistes(pais);
             } else {
-                result = api.getProximesEstrenes(pais);
+                result = RottenTomatoesAPI.getProximesEstrenes(pais);
             }
 
             Log.d("DEBUG", result != null ? result.toString() : null);

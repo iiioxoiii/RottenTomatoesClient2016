@@ -12,25 +12,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 class RottenTomatoesAPI {
-    private final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
-    private final String API_KEY = "9htuhtcb4ymusd73d4z6jxcj";
-    private final Integer LIMIT = 50;
+    private static final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
+    private static final String API_KEY = "9htuhtcb4ymusd73d4z6jxcj";
+    private static final Integer LIMIT = 50;
 
-    ArrayList<Movie> getPeliculesMesVistes(String pais) {
+    static ArrayList<Movie> getPeliculesMesVistes(String pais) {
         String url = getUrl(pais, "box_office.json");
 
         Log.d("URL", url);
         return doCall(url);
     }
 
-    ArrayList<Movie> getProximesEstrenes(String pais) {
+    static ArrayList<Movie> getProximesEstrenes(String pais) {
         String url = getUrl(pais, "upcoming.json");
 
         Log.d("URL", url);
         return doCall(url);
     }
 
-    private String getUrl(String pais, String endpoint) {
+    private static String getUrl(String pais, String endpoint) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("lists")
@@ -44,7 +44,7 @@ class RottenTomatoesAPI {
     }
 
     @Nullable
-    private ArrayList<Movie> doCall(String url) {
+    private static ArrayList<Movie> doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
             return processJson(JsonResponse);
@@ -54,7 +54,7 @@ class RottenTomatoesAPI {
         return null;
     }
 
-    private ArrayList<Movie> processJson(String jsonResponse) {
+    private static ArrayList<Movie> processJson(String jsonResponse) {
         ArrayList<Movie> movies = new ArrayList<>();
         try {
             JSONObject data = new JSONObject(jsonResponse);
