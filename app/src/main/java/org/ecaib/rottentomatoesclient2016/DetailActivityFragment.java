@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alexvasilkov.events.Events;
 import com.bumptech.glide.Glide;
 
 import org.ecaib.rottentomatoesclient2016.databinding.FragmentDetailBinding;
@@ -22,6 +23,13 @@ public class DetailActivityFragment extends Fragment {
     private FragmentDetailBinding binding;
 
     public DetailActivityFragment() {
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Events.register(this);
     }
 
     @Override
@@ -42,6 +50,11 @@ public class DetailActivityFragment extends Fragment {
         }
 
         return view;
+    }
+
+    @Events.Subscribe("movie-selected")
+    private void onMovieSelected(Movie movie) {
+        updateUi(movie);
     }
 
     private void updateUi(Movie movie) {

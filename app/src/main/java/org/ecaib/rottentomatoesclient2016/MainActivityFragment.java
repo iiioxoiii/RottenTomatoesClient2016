@@ -21,6 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.alexvasilkov.events.Events;
+
 import org.ecaib.rottentomatoesclient2016.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
@@ -65,6 +67,8 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
                     intent.putExtra("movie", movie);
 
                     startActivity(intent);
+                } else {
+                    Events.create("movie-selected").param(movie).post();
                 }
             }
         });
