@@ -2,7 +2,6 @@ package org.ecaib.rottentomatoesclient2016;
 
 import android.net.Uri;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,22 +14,19 @@ class RottenTomatoesAPI {
     private static final String BASE_URL = "http://api.rottentomatoes.com/api/public/v1.0/";
     private static final String API_KEY = "9htuhtcb4ymusd73d4z6jxcj";
     private static final Integer LIMIT = 50;
+    private static final int PAGES = 10;
 
     static ArrayList<Movie> getPeliculesMesVistes(String pais) {
-        String url = getUrl(pais, "box_office.json");
+        ArrayList<Movie> result = new ArrayList<>();
 
-        Log.d("URL", url);
-        return doCall(url);
+        return doCall("box_office.json", pais);
     }
 
     static ArrayList<Movie> getProximesEstrenes(String pais) {
-        String url = getUrl(pais, "upcoming.json");
-
-        Log.d("URL", url);
-        return doCall(url);
+        return doCall("upcoming.json", pais);
     }
 
-    private static String getUrl(String pais, String endpoint) {
+    private static String getUrlPage(String pais, String endpoint, int page) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath("lists")
@@ -39,19 +35,26 @@ class RottenTomatoesAPI {
                 .appendQueryParameter("country", pais)
                 .appendQueryParameter("limit", LIMIT.toString())
                 .appendQueryParameter("apikey", API_KEY)
+                .appendQueryParameter("page", String.valueOf(page))
                 .build();
         return builtUri.toString();
     }
 
     @Nullable
-    private static ArrayList<Movie> doCall(String url) {
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return processJson(JsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private static ArrayList<Movie> doCall(String endpoint, String pais) {
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        for (int i = 0; i < PAGES; i++) {
+            try {
+                String url = getUrlPage(pais, endpoint, i);
+                String JsonResponse = HttpUtils.get(url);
+                ArrayList<Movie> list = processJson(JsonResponse);
+                movies.addAll(list);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return movies;
     }
 
     private static ArrayList<Movie> processJson(String jsonResponse) {
