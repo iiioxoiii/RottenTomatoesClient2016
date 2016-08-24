@@ -2,17 +2,13 @@ package org.ecaib.rottentomatoesclient2016;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,8 +20,6 @@ import android.widget.AdapterView;
 import com.alexvasilkov.events.Events;
 
 import org.ecaib.rottentomatoesclient2016.databinding.FragmentMainBinding;
-
-import java.util.ArrayList;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -109,7 +103,7 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     }
 
     private void refresh() {
-        RefreshDataTask task = new RefreshDataTask();
+        RefreshDataTask task = new RefreshDataTask(getActivity().getApplicationContext());
         task.execute();
     }
 
@@ -126,43 +120,6 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         adapter.swapCursor(null);
-    }
-
-    private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            dialog.show();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String pais = preferences.getString("pais", "es");
-            String tipusConsulta = preferences.getString("tipus_consulta", "vistes");
-
-            ArrayList<Movie> result;
-            if (tipusConsulta.equals("vistes")) {
-                result = RottenTomatoesAPI.getPeliculesMesVistes(pais);
-            } else {
-                result = RottenTomatoesAPI.getProximesEstrenes(pais);
-            }
-
-            Log.d("DEBUG", result != null ? result.toString() : null);
-
-            DataManager.deleteMovies(getContext());
-            DataManager.saveMovies(result, getContext());
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-
-            dialog.dismiss();
-        }
-
     }
 
 }
