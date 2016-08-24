@@ -65,10 +65,11 @@ public class MainActivityFragment extends LifecycleFragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Movie movie = (Movie) adapterView.getItemAtPosition(i);
-                Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra("movie", movie);
-
-                startActivity(intent);
+                if (!esTablet()) {
+                    Intent intent = new Intent(getContext(), DetailActivity.class);
+                    intent.putExtra("movie", movie);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -83,6 +84,10 @@ public class MainActivityFragment extends LifecycleFragment {
 
 
         return view;
+    }
+
+    boolean esTablet() {
+        return getResources().getBoolean(R.bool.tablet);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
