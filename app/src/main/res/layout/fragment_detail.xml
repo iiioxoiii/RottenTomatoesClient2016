@@ -31,7 +31,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="The Dark Knight"
+            android:text=""
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@+id/ivPosterImage"
@@ -44,7 +44,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="This is a story about a protagonist defeating an antagonist"
+            android:text=""
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ivPosterImage"
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="TextView"
+            android:text=""
             app:layout_constraintStart_toEndOf="@+id/ivPosterImage"
             app:layout_constraintTop_toBottomOf="@+id/tvTitle" />
 
