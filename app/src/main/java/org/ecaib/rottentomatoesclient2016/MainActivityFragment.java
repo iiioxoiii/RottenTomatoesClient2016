@@ -60,16 +60,22 @@ public class MainActivityFragment extends Fragment implements LoaderManager.Load
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Movie movie = (Movie) adapterView.getItemAtPosition(i);
 
-                Intent intent = new Intent(getContext(), DetailActivity.class);
-                intent.putExtra("movie", movie);
+                if (!esTablet()) {
+                    Intent intent = new Intent(getContext(), DetailActivity.class);
+                    intent.putExtra("movie", movie);
 
-                startActivity(intent);
+                    startActivity(intent);
+                }
             }
         });
 
         getLoaderManager().initLoader(0, null, this);
 
         return view;
+    }
+
+    boolean esTablet() {
+        return getResources().getBoolean(R.bool.tablet);
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
