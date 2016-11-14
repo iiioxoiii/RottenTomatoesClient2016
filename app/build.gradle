@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "org.ecaib.rottentomatoesclient2016"
         minSdkVersion 16
@@ -21,6 +21,10 @@ android {
     dataBinding {
         enabled = true
     }
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE'
+    }
 }
 
 dependencies {
@@ -28,14 +32,15 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:support-vector-drawable:24.2.0'
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    compile 'com.android.support:support-v4:25.0.0'
+    compile 'com.android.support:support-vector-drawable:25.0.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'nl.qbusict:cupboard:2.1.4'
     compile 'nl.littlerobots:cupboard-tools:0.2.0'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.7.3'
 
     testCompile 'junit:junit:4.12'
 }
