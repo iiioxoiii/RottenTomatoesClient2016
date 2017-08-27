@@ -86,6 +86,8 @@ public class MainActivityFragment extends Fragment {
     }
 
     private void refresh() {
+        RefreshDataTask task = new RefreshDataTask();
+        task.execute();
     }
 
     private class RefreshDataTask extends AsyncTask<Void, Void, Void> {
