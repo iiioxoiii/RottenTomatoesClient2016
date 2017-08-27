@@ -13,19 +13,16 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.ecaib.rottentomatoesclient2016.databinding.FragmentDetailBinding;
+
 /**
  * A placeholder fragment containing a simple view.
  */
 public class DetailActivityFragment extends Fragment {
 
     private View view;
-    private ImageView ivPosterImage;
-    private TextView tvTitle;
-    private TextView tvCriticsScore;
-    private TextView tvAudienceScore;
-    private TextView tvCriticsConsensus;
-    private TextView tvSynopsis;
-    private TextView tvReleaseDate;
+
+    private FragmentDetailBinding binding;
 
     public DetailActivityFragment() {
     }
@@ -33,7 +30,8 @@ public class DetailActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_detail, container, false);
+        binding = FragmentDetailBinding.inflate(inflater);
+        view = binding.getRoot();
 
         Intent i = getActivity().getIntent();
 
@@ -51,16 +49,11 @@ public class DetailActivityFragment extends Fragment {
     private void updateUi(Movie movie) {
         Log.d("MOVIE", movie.toString());
 
-        ivPosterImage = view.findViewById(R.id.ivPosterImage);
-        tvTitle =  view.findViewById(R.id.tvTitle);
-        tvReleaseDate = view.findViewById(R.id.tvReleaseDate);
-        tvSynopsis =   view.findViewById(R.id.tvSynopsis);
-
-        tvTitle.setText(movie.getTitle());
-        tvReleaseDate.setText(movie.getReleaseDate());
-        tvSynopsis.setText(Html.fromHtml("<b>Synopsis:</b> " + movie.getOverview()));
+        binding.tvTitle.setText(movie.getTitle());
+        binding.tvReleaseDate.setText(movie.getReleaseDate());
+        binding.tvSynopsis.setText(Html.fromHtml("<b>Synopsis:</b> " + movie.getOverview()));
         Glide.with(getContext()).load(
                 "https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()
-        ).into(ivPosterImage);
+        ).into(binding.ivPosterImage);
     }
 }

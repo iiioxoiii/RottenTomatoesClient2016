@@ -17,6 +17,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.ecaib.rottentomatoesclient2016.databinding.FragmentMainBinding;
+
 import java.util.ArrayList;
 
 /**
@@ -26,6 +28,7 @@ public class MainActivityFragment extends Fragment {
 
     private ArrayList<Movie> items;
     private MoviesAdapter adapter;
+    private FragmentMainBinding binding;
 
     public MainActivityFragment() {
     }
@@ -40,9 +43,8 @@ public class MainActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
-
-        ListView lvPelis = (ListView) view.findViewById(R.id.lvPelis);
+        binding = FragmentMainBinding.inflate(inflater);
+        View view = binding.getRoot();
 
         items = new ArrayList<>();
         adapter = new MoviesAdapter(
@@ -51,9 +53,9 @@ public class MainActivityFragment extends Fragment {
                 items
         );
 
-        lvPelis.setAdapter(adapter);
+        binding.lvPelis.setAdapter(adapter);
 
-        lvPelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        binding.lvPelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Movie movie = (Movie) adapterView.getItemAtPosition(i);
