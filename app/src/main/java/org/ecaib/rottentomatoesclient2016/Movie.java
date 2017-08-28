@@ -14,6 +14,14 @@ public class Movie implements Serializable {
     private String overview;
     private String posterPath;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getTitle() {
         return title;
     }
