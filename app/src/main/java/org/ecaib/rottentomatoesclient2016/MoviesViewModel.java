@@ -57,12 +57,10 @@ public class MoviesViewModel extends AndroidViewModel {
 
             Log.d("DEBUG", result != null ? result.toString() : null);
 
+            movieDao.deleteMovies();
+
             return result;
         }
 
-        @Override
-        protected void onPostExecute(ArrayList<Movie> results) {
-            movies.postValue(results);
-        }
     }
 }
