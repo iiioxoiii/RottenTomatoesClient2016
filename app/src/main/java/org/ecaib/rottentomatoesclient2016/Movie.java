@@ -1,8 +1,14 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity
 public class Movie implements Serializable {
+    @PrimaryKey(autoGenerate = true)
+    private int id;
     private String title;
     private String releaseDate;
     private String overview;
