@@ -28,10 +28,7 @@ public class MoviesViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Movie>> getMovies() {
-        if (movies == null) {
-            reload();
-        }
-        return movies;
+        return movieDao.getMovies();
     }
 
     public void reload() {
