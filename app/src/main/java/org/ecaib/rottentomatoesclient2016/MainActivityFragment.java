@@ -1,5 +1,8 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.arch.lifecycle.LifecycleFragment;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -20,15 +23,18 @@ import android.widget.ListView;
 import org.ecaib.rottentomatoesclient2016.databinding.FragmentMainBinding;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class MainActivityFragment extends LifecycleFragment {
 
     private ArrayList<Movie> items;
     private MoviesAdapter adapter;
     private FragmentMainBinding binding;
+    private SharedPreferences preferences;
+    private MoviesViewModel model;
 
     public MainActivityFragment() {
     }
@@ -66,6 +72,16 @@ public class MainActivityFragment extends Fragment {
             }
         });
 
+        model = ViewModelProviders.of(this).get(MoviesViewModel.class);
+        model.getMovies().observe(this, new Observer<List<Movie>>() {
+            @Override
+            public void onChanged(@Nullable List<Movie> movies) {
+                adapter.clear();
+                adapter.addAll(movies);
+            }
+        });
+
+
         return view;
     }
 
@@ -93,41 +109,10 @@ public class MainActivityFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        refresh();
     }
 
     private void refresh() {
-        RefreshDataTask task = new RefreshDataTask();
-        task.execute();
-    }
-
-    private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
-        @Override
-        protected ArrayList<Movie> doInBackground(Void... voids) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
-            String pais = preferences.getString("pais", "es");
-            String tipusConsulta = preferences.getString("tipus_consulta", "vistes");
-
-            RottenTomatoesAPI api = new RottenTomatoesAPI();
-            ArrayList<Movie> result;
-            if (tipusConsulta.equals("vistes")) {
-                result = api.getPeliculesMesVistes(pais);
-            } else {
-                result = api.getProximesEstrenes(pais);
-            }
-
-            Log.d("DEBUG", result != null ? result.toString() : null);
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<Movie> movies) {
-            adapter.clear();
-            for (Movie peli : movies) {
-                adapter.add(peli);
-            }
-        }
+        model.reload();
     }
 
 }
