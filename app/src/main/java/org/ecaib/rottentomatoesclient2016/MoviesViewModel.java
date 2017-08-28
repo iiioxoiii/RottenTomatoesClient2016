@@ -15,19 +15,20 @@ import java.util.List;
 
 public class MoviesViewModel extends AndroidViewModel {
     private final Application app;
-    private MutableLiveData<List<Movie>> movies;
+    private final AppDatabase appDatabase;
+    private final MovieDao movieDao;
+    private LiveData<List<Movie>> movies;
 
     public MoviesViewModel(Application application) {
         super(application);
 
         this.app = application;
+        this.appDatabase = AppDatabase.getDatabase(this.getApplication());
+        this.movieDao = appDatabase.getMovieDao();
     }
 
     public LiveData<List<Movie>> getMovies() {
-        Log.d("DEBUG", "ENTRA");
-
         if (movies == null) {
-            movies = new MutableLiveData<>();
             reload();
         }
         return movies;
