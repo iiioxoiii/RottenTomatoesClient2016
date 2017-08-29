@@ -1,15 +1,16 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.arch.lifecycle.LifecycleFragment;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -18,7 +19,7 @@ import org.ecaib.rottentomatoesclient2016.databinding.FragmentDetailBinding;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class DetailActivityFragment extends Fragment {
+public class DetailActivityFragment extends LifecycleFragment {
 
     private View view;
 
@@ -42,6 +43,17 @@ public class DetailActivityFragment extends Fragment {
                 updateUi(movie);
             }
         }
+
+        SharedViewModel sharedModel = ViewModelProviders.of(
+                getActivity()
+        ).get(SharedViewModel.class);
+        sharedModel.getSelected().observe(this, new Observer<Movie>() {
+            @Override
+            public void onChanged(@Nullable Movie movie) {
+                updateUi(movie);
+            }
+        });
+
 
         return view;
     }
