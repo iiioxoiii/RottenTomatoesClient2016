@@ -19,6 +19,7 @@ public class MoviesViewModel extends AndroidViewModel {
     private final MovieDao movieDao;
     private LiveData<List<Movie>> movies;
 
+
     public MoviesViewModel(Application application) {
         super(application);
 
@@ -58,6 +59,7 @@ public class MoviesViewModel extends AndroidViewModel {
             Log.d("DEBUG", result != null ? result.toString() : null);
 
             movieDao.deleteMovies();
+            movieDao.addMovies(result);
 
             return result;
         }
