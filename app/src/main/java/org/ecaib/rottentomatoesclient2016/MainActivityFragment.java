@@ -35,6 +35,7 @@ public class MainActivityFragment extends LifecycleFragment {
     private FragmentMainBinding binding;
     private SharedPreferences preferences;
     private MoviesViewModel model;
+    private SharedViewModel sharedModel;
 
     public MainActivityFragment() {
     }
@@ -59,8 +60,9 @@ public class MainActivityFragment extends LifecycleFragment {
                 items
         );
 
-        binding.lvPelis.setAdapter(adapter);
+        sharedModel = ViewModelProviders.of(getActivity()).get(SharedViewModel.class);
 
+        binding.lvPelis.setAdapter(adapter);
         binding.lvPelis.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,6 +71,8 @@ public class MainActivityFragment extends LifecycleFragment {
                     Intent intent = new Intent(getContext(), DetailActivity.class);
                     intent.putExtra("movie", movie);
                     startActivity(intent);
+                } else {
+                    sharedModel.select(movie);
                 }
             }
         });
@@ -81,7 +85,6 @@ public class MainActivityFragment extends LifecycleFragment {
                 adapter.addAll(movies);
             }
         });
-
 
         return view;
     }

@@ -1,5 +1,6 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.arch.lifecycle.LifecycleActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import com.bumptech.glide.manager.Lifecycle;
+
+public class MainActivity extends AppCompatLifecycleActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
