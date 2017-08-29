@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class RottenTomatoesAPI {
     private final String BASE_URL = "http://api.themoviedb.org/3";
     private final String API_KEY = "1ea3bf746c81fe337d4cf49e7e66d670";
+    private final int PAGES = 5;
 
     ArrayList<Movie> getPeliculesMesVistes(String pais) {
         return doCall("discover", "movie", pais);
@@ -21,23 +22,32 @@ public class RottenTomatoesAPI {
         return doCall("movie", "upcoming", pais);
     }
 
-    private ArrayList<Movie> doCall(String recurs, String tipus, String pais) {
+    private String getUrlPage(String pais, String recurs, String tipus, int pagina) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
                 .appendPath(recurs)
                 .appendPath(tipus)
                 .appendQueryParameter("region", pais)
                 .appendQueryParameter("api_key", API_KEY)
+                .appendQueryParameter("page", String.valueOf(pagina))
                 .build();
-        String url = builtUri.toString();
+        return builtUri.toString();
+    }
 
-        try {
-            String JsonResponse = HttpUtils.get(url);
-            return processJson(JsonResponse);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private ArrayList<Movie> doCall(String recurs, String tipus, String pais) {
+        ArrayList<Movie> movies = new ArrayList<>();
+
+        for (int i = 0; i < PAGES; i++) {
+            try {
+                String url = getUrlPage(pais, recurs, tipus, i);
+                String JsonResponse = HttpUtils.get(url);
+                ArrayList<Movie> list = processJson(JsonResponse);
+                movies.addAll(list);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        return null;
+        return movies;
     }
 
     private ArrayList<Movie> processJson(String jsonResponse) {
