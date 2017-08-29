@@ -1,6 +1,7 @@
 package org.ecaib.rottentomatoesclient2016;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
@@ -17,8 +18,7 @@ public class MoviesViewModel extends AndroidViewModel {
     private final Application app;
     private final AppDatabase appDatabase;
     private final MovieDao movieDao;
-    private LiveData<List<Movie>> movies;
-
+    private static final int PAGES = 10;
 
     public MoviesViewModel(Application application) {
         super(application);

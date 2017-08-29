@@ -14,32 +14,23 @@ public class RottenTomatoesAPI {
     private final String API_KEY = "1ea3bf746c81fe337d4cf49e7e66d670";
 
     ArrayList<Movie> getPeliculesMesVistes(String pais) {
-        Uri builtUri = Uri.parse(BASE_URL)
-                .buildUpon()
-                .appendPath("discover")
-                .appendPath("movie")
-                .appendQueryParameter("region", pais)
-                .appendQueryParameter("api_key", API_KEY)
-                .build();
-        String url = builtUri.toString();
-
-        return doCall(url);
+        return doCall("discover", "movie", pais);
     }
 
     ArrayList<Movie> getProximesEstrenes(String pais) {
+        return doCall("movie", "upcoming", pais);
+    }
+
+    private ArrayList<Movie> doCall(String recurs, String tipus, String pais) {
         Uri builtUri = Uri.parse(BASE_URL)
                 .buildUpon()
-                .appendPath("movie")
-                .appendPath("upcoming")
+                .appendPath(recurs)
+                .appendPath(tipus)
                 .appendQueryParameter("region", pais)
                 .appendQueryParameter("api_key", API_KEY)
                 .build();
         String url = builtUri.toString();
 
-        return doCall(url);
-    }
-
-    private ArrayList<Movie> doCall(String url) {
         try {
             String JsonResponse = HttpUtils.get(url);
             return processJson(JsonResponse);
