@@ -1,5 +1,6 @@
 package org.ecaib.rottentomatoesclient2016;
 
+import android.app.ProgressDialog;
 import android.arch.lifecycle.LifecycleFragment;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -36,6 +37,7 @@ public class MainActivityFragment extends LifecycleFragment {
     private SharedPreferences preferences;
     private MoviesViewModel model;
     private SharedViewModel sharedModel;
+    private ProgressDialog dialog;
 
     public MainActivityFragment() {
     }
@@ -83,6 +85,19 @@ public class MainActivityFragment extends LifecycleFragment {
             public void onChanged(@Nullable List<Movie> movies) {
                 adapter.clear();
                 adapter.addAll(movies);
+            }
+        });
+
+        dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Loading...");
+
+        model.getLoading().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean mostrat) {
+                if(mostrat)
+                    dialog.show();
+                else
+                    dialog.dismiss();
             }
         });
 
