@@ -19,6 +19,7 @@ public class MoviesViewModel extends AndroidViewModel {
     private final AppDatabase appDatabase;
     private final MovieDao movieDao;
     private static final int PAGES = 10;
+    private MutableLiveData<Boolean> loading;
 
     public MoviesViewModel(Application application) {
         super(application);
@@ -38,7 +39,20 @@ public class MoviesViewModel extends AndroidViewModel {
         task.execute();
     }
 
+    public MutableLiveData<Boolean> getLoading() {
+        if(loading == null){
+            loading = new MutableLiveData<>();
+        }
+        return loading;
+    }
+
     private class RefreshDataTask extends AsyncTask<Void, Void, ArrayList<Movie>> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loading.setValue(true);
+        }
+
         @Override
         protected ArrayList<Movie> doInBackground(Void... voids) {
 
@@ -62,6 +76,12 @@ public class MoviesViewModel extends AndroidViewModel {
             movieDao.addMovies(result);
 
             return result;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<Movie> movies) {
+            super.onPostExecute(movies);
+            loading.setValue(false);
         }
 
     }
